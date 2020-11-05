@@ -1,6 +1,7 @@
 package Soporte;
 
 import Domino.Agrupacion;
+import Domino.Region;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,9 +53,9 @@ public class TextFile {
         return htable;
     }
 
-    public TSBHashtable contarVotosAgrp() {
+    public TSBHashtable contarVotosAgrp(TSBHashtable htable) {
         String line = "", campos[];
-        TSBHashtable htable = new TSBHashtable();
+        //TSBHashtable htable = new TSBHashtable();
         Agrupacion agrupacion;
         int votos;
         try {
@@ -76,4 +77,30 @@ public class TextFile {
         }
         return htable;
     }
+
+    public Region identificarRegiones(){
+        String line = "", campos[];
+        Region pais = new Region("00", "Argentina");
+        try {
+            Scanner scnr = new Scanner(file);
+
+            while (scnr.hasNext()){
+                line = scnr.nextLine();
+                campos = line.split("\\|");
+                String codigo = campos[0];
+                String nombre = campos[1];
+
+                if (codigo.length()==2)
+                {
+                    pais.agregarSubregion(new Region(codigo, nombre));
+                }
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo!");;
+        }
+        return pais;
+    }
+
+
 }

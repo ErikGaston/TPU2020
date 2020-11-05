@@ -26,9 +26,9 @@ public class Controller {
         Agrupaciones agrupaciones = new Agrupaciones(lblOrigen.getText());
         textAgrupaciones.setText(agrupaciones.toString());
 
-        TextFile archRegiones = new TextFile(lblOrigen.getText() + "\\descripcion_regiones.dsv");
+        //TextFile archRegiones = new TextFile(lblOrigen.getText() + "\\descripcion_regiones.dsv");
 
-        TextFile archMesas = new TextFile(lblOrigen.getText() + "\\mesas_totales_agrp_politica.dsv");
+        //TextFile archMesas = new TextFile(lblOrigen.getText() + "\\mesas_totales_agrp_politica.dsv");
 
 
 

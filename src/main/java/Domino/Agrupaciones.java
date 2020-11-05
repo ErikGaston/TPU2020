@@ -13,7 +13,7 @@ public class Agrupaciones {
         fileAgrupaciones = new TextFile(path + "\\descripcion_postulaciones.dsv");
         fileMesas = new TextFile(path + "\\mesas_totales_agrp_politica.dsv");
         table = fileAgrupaciones.identificarAgrupaciones();
-        fileMesas.contarVotosAgrp();
+        fileMesas.contarVotosAgrp(table);
 
     }
 
