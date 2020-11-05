@@ -51,4 +51,29 @@ public class TextFile {
         }
         return htable;
     }
+
+    public TSBHashtable contarVotosAgrp() {
+        String line = "", campos[];
+        TSBHashtable htable = new TSBHashtable();
+        Agrupacion agrupacion;
+        int votos;
+        try {
+            Scanner scnr = new Scanner(file);
+            while (scnr.hasNext()){
+                line = scnr.nextLine();
+                campos = line.split("\\|");
+                if (campos[4].compareTo("000100000000000")==0)
+                {
+                    agrupacion = (Agrupacion) htable.get(campos[5]);
+                    votos = Integer.parseInt(campos[6]);
+                    agrupacion.sumarVotos(votos);
+                }
+            }
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo!");;
+        }
+        return htable;
+    }
 }
