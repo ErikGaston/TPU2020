@@ -11,7 +11,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblOrigen" layoutX="144.0" layoutY="42.0" prefHeight="17.0" prefWidth="298.0" />
+      <Label fx:id="lblOrigen" layoutX="144.0" layoutY="42.0" prefHeight="20.0" prefWidth="298.0" text="C:\Users" />
       <Button fx:id="btnCambiar" layoutX="448.0" layoutY="38.0" mnemonicParsing="false" onAction="#cambiarDestino" text="Cambiar" />
    </children>
 </AnchorPane>
