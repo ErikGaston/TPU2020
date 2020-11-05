@@ -8,5 +8,9 @@ public class Agrupacion {
         this.codigo = codigo;
         Nombre = nombre;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
 }
 
