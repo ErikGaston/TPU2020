@@ -1,4 +1,5 @@
 package Interfaz;
+import Domino.Agrupaciones;
 import Soporte.TextFile;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
