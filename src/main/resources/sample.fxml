@@ -14,5 +14,6 @@
       <Label fx:id="lblOrigen" layoutX="144.0" layoutY="42.0" prefHeight="20.0" prefWidth="298.0" text="C:\Users" />
       <Button fx:id="btnCambiar" layoutX="448.0" layoutY="38.0" mnemonicParsing="false" onAction="#cambiarDestino" text="Cambiar" />
       <Button fx:id="btnCargarDatos" layoutX="42.0" layoutY="93.0" mnemonicParsing="false" onAction="#cargarDatos" prefHeight="12.0" prefWidth="102.0" text="Cargar Datos" />
+      <TextArea fx:id="textAgrupaciones" layoutX="44.0" layoutY="143.0" prefHeight="325.0" prefWidth="522.0" />
    </children>
 </AnchorPane>
