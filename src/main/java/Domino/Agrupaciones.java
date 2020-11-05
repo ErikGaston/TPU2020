@@ -4,6 +4,8 @@ package Domino;
 import Soporte.TSBHashtable;
 import  Soporte.TextFile;
 
+import java.util.Collection;
+
 public class Agrupaciones {
     private TextFile fileAgrupaciones;
     private TextFile fileMesas;
@@ -24,5 +26,9 @@ public class Agrupaciones {
             sb.append("\n" + objeto);
         }
         return sb.toString();
+    }
+
+    public Collection getResultados(){
+        return table.values();
     }
 }
