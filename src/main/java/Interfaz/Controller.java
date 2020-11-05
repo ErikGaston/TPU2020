@@ -1,15 +1,20 @@
 package Interfaz;
 import Domino.Agrupaciones;
 import Soporte.TextFile;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.DirectoryChooser;
 import java.io.File;
 
 public class Controller {
     public Label lblOrigen;
-    public TextArea textAgrupaciones;
+    public ListView lvwResultados;
+
     File archivo;
     public void cambiarDestino(ActionEvent actionEvent) {
         DirectoryChooser dc = new DirectoryChooser();
@@ -23,13 +28,11 @@ public class Controller {
 
     public void cargarDatos(ActionEvent actionEvent) {
 
+        //Carga de Grilla
+
         Agrupaciones agrupaciones = new Agrupaciones(lblOrigen.getText());
-        textAgrupaciones.setText(agrupaciones.toString());
-
-        //TextFile archRegiones = new TextFile(lblOrigen.getText() + "\\descripcion_regiones.dsv");
-
-        //TextFile archMesas = new TextFile(lblOrigen.getText() + "\\mesas_totales_agrp_politica.dsv");
-
+        ObservableList ol = FXCollections.observableArrayList(agrupaciones.getResultados());
+        lvwResultados.setItems(ol);
 
 
     }
