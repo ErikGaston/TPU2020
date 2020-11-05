@@ -1,5 +1,12 @@
 package Domino;
 
 public class Agrupacion {
-    //Implementar la clase del domuino agrupaciones politicas
+    private String codigo;
+    private String Nombre;
+
+    public Agrupacion(String codigo, String nombre) {
+        this.codigo = codigo;
+        Nombre = nombre;
+    }
 }
+
