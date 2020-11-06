@@ -14,6 +14,10 @@ public class Region {
 
     private TSBHashtable subregiones;
 
+    public String getCodigo() {
+        return codigo;
+    }
+
     public Region(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;

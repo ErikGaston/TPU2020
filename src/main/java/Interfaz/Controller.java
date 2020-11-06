@@ -1,6 +1,5 @@
 package Interfaz;
-import Domino.Agrupaciones;
-import Domino.Regiones;
+import Domino.*;
 import Soporte.TextFile;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -14,9 +13,11 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 
 public class Controller {
+
+    public Resultados resultados;
     public Label lblOrigen;
     public ListView lvwResultados;
-    public ComboBox cboDistricto;
+    public ComboBox cboDistrito;
     public ComboBox cboSeccion;
     public ComboBox cboCircuito;
 
@@ -35,30 +36,37 @@ public class Controller {
 
         //Carga de Grilla
         ObservableList ol;
-        //Genracion de lista agrupaciones
-        Agrupaciones agrupaciones = new Agrupaciones(lblOrigen.getText());
-        ol = FXCollections.observableArrayList(agrupaciones.getResultados());
-        lvwResultados.setItems(ol);
-        //Generacion de lista de districtos
-        Regiones regiones = new Regiones(lblOrigen.getText());
-        ol = FXCollections.observableArrayList(regiones.getDistrictos());
-        cboDistricto.setItems(ol);
 
-        Resultados resultados = new Resultados(lblOrigen.getText());
+        //Genracion de lista agrupaciones
+        Agrupaciones.leerAgrupaciones(lblOrigen.getText());
+        Regiones regiones = new Regiones(lblOrigen.getText());
+        ol = FXCollections.observableArrayList(regiones.getDistritos());
+        cboDistrito.setItems(ol);
+        resultados = new Resultados(lblOrigen.getText());
+        ol = FXCollections.observableArrayList(resultados.getResultadosRegion("00"));
+        lvwResultados.setItems(ol);
     }
+
     public void filtrarSecciones(ActionEvent actionEvent){
         ObservableList ol;
         Region distrito = (Region) cboDistrito.getValue();
-        ol = FXCollections.observableArrayList(distrito.getSubRegiones());
+        ol = FXCollections.observableArrayList(distrito.getSubregiones());
         cboSeccion.setItems(ol);
+
+        ol = FXCollections.observableArrayList(resultados.getResultadosRegion(distrito.getCodigo()));
+        lvwResultados.setItems(ol);
     }
 
     public void filtrarCircuitos(ActionEvent actionEvent){
         ObservableList ol;
+
         if(cboSeccion.getValue() != null){
             Region seccion = (Region) cboSeccion.getValue();
-            ol = FXColleccions.observableArrayList(seccion.getSubRegiones());
+            ol = FXCollections.observableArrayList(seccion.getSubregiones());
             cboCircuito.setItems(ol);
+            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(seccion.getCodigo()));
+            lvwResultados.setItems(ol);
+
         }else
             cboCircuito.setItems(null);
     }

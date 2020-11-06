@@ -15,7 +15,7 @@
       <Button fx:id="btnCambiar" layoutX="468.0" layoutY="28.0" mnemonicParsing="false" onAction="#cambiarDestino" prefHeight="25.0" prefWidth="94.0" text="Cambiar" />
       <Button fx:id="btnCargarDatos" layoutX="19.0" layoutY="63.0" mnemonicParsing="false" onAction="#cargarDatos" prefHeight="12.0" prefWidth="102.0" text="Cargar Datos" />
       <ListView fx:id="lvwResultados" layoutX="9.0" layoutY="228.0" prefHeight="371.0" prefWidth="686.0" />
-      <Label layoutX="14.0" layoutY="192.0" prefHeight="25.0" prefWidth="113.0" text="Resultados:" underline="true">
+      <Label fx:id="lblResultado" layoutX="14.0" layoutY="192.0" prefHeight="25.0" prefWidth="113.0" text="Resultados:" underline="true">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -24,7 +24,7 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <ComboBox fx:id="cboDistricto" layoutX="181.0" layoutY="107.0" prefHeight="25.0" prefWidth="291.0" />
+      <ComboBox fx:id="cboDistrito" layoutX="181.0" layoutY="107.0" prefHeight="25.0" prefWidth="291.0" />
       <Label layoutX="127.0" layoutY="151.0" prefHeight="17.0" prefWidth="54.0" text="Seccion:">
          <font>
             <Font name="System Bold" size="13.0" />

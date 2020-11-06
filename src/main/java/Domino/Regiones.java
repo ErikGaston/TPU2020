@@ -13,7 +13,7 @@ public class Regiones {
         pais = fileRegiones.identificarRegiones();
     }
 
-    public Collection getDustritos(){
+    public Collection getDistritos(){
         return pais.getSubregiones();
     }
 }

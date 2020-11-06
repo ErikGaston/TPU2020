@@ -5,6 +5,10 @@ public class Agrupacion {
     private String Nombre;
     private int votos;
 
+    public String getNombre() {
+        return Nombre;
+    }
+
     public Agrupacion(String codigo, String nombre) {
         this.codigo = codigo;
         Nombre = nombre;

@@ -2,6 +2,7 @@ package Soporte;
 
 import Domino.Agrupacion;
 import Domino.Region;
+import Domino.Resultados;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -118,4 +119,28 @@ public class TextFile {
     }
 
 
+    public void sumarVotosPorRegion(Resultados resultados) {
+        String line = "", campos[];
+        int votos;
+
+        try {
+            Scanner scnr = new Scanner(file);
+            while (scnr.hasNext()){
+                line = scnr.nextLine();
+                campos = line.split("\\|");
+                if (campos[4].compareTo("000100000000000")==0)
+                {
+                    votos = Integer.parseInt(campos[6]);
+                    resultados.sumarVotos("00", campos[5],  votos);
+                    for (int i =0; i < 3; i++){
+                        resultados.sumarVotos("00", campos[5],  votos);
+                    }
+                }
+            }
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println("No se encontró el archivo!");;
+        }
+    }
 }
