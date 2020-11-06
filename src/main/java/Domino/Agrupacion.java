@@ -15,6 +15,8 @@ public class Agrupacion {
         return codigo;
     }
 
+    public String getNombre() { return Nombre; }
+
     public void sumarVotos(int votos) {
         this.votos += votos;
     }
