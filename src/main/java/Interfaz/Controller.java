@@ -40,11 +40,13 @@ public class Controller {
         //Genracion de lista agrupaciones
         Agrupaciones.leerAgrupaciones(lblOrigen.getText());
         Regiones regiones = new Regiones(lblOrigen.getText());
+
         ol = FXCollections.observableArrayList(regiones.getDistritos());
         cboDistrito.setItems(ol);
         resultados = new Resultados(lblOrigen.getText());
         ol = FXCollections.observableArrayList(resultados.getResultadosRegion("00"));
         lvwResultados.setItems(ol);
+
     }
 
     public void filtrarSecciones(ActionEvent actionEvent){

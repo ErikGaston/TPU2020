@@ -95,16 +95,20 @@ public class TextFile {
                 switch (codigo.length())
                 {
                     case 2:
+                        //provincia
                         distrito = pais.getOrPutSubregion(codigo);
                         distrito.setNombre(nombre);
                         break;
 
                     case 5:
+                        // nivel de localidad
                         distrito = pais.getOrPutSubregion(codigo.substring(0, 2));
                         seccion = distrito.getOrPutSubregion(codigo);
                         seccion.setNombre(nombre);
                         break;
                     case 11:
+
+                        // Nivel de circuito.
                         distrito = pais.getOrPutSubregion(codigo.substring(0, 2));
                         seccion = distrito.getOrPutSubregion(codigo.substring(0, 5));
                         seccion.agregarSubregion(new Region(codigo, nombre));
