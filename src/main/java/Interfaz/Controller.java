@@ -94,4 +94,8 @@ public class Controller {
             lvwResultados.setItems(ol);
         }
     }
+
+    public void elegirMesa(ActionEvent actionEvent) {
+        //Implemetar busqueda subregiones mesa y mosrtarlas.
+    }
 }

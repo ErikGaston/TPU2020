@@ -1,13 +1,13 @@
 package Domino;
 
-import Soporte.TSBHashtable;
+import Soporte.TSB_OAHashtable;
 
 import java.util.Collection;
 
 public class Region {
     private String codigo;
     private String nombre;
-    private TSBHashtable subregiones;
+    private TSB_OAHashtable subregiones;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -22,7 +22,7 @@ public class Region {
     public Region(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.subregiones = new TSBHashtable();
+        this.subregiones = new TSB_OAHashtable();
     }
 
     public void agregarSubregion(Region region) {

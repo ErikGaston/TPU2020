@@ -1,16 +1,16 @@
 package Domino;
 
-import Soporte.TSBHashtable;
+import Soporte.TSB_OAHashtable;
 import Soporte.TextFile;
 import javafx.scene.text.Text;
 
 import java.util.Collection;
 
 public class Resultados {
-    private TSBHashtable tabla;
+    private TSB_OAHashtable tabla;
 
     public Resultados(String path){
-        tabla = new TSBHashtable();
+        tabla = new TSB_OAHashtable();
         TextFile fileMesas = new TextFile(path + "\\mesas_totales_agrp_politica.dsv");
         fileMesas.sumarVotosPorRegion(this);
     }

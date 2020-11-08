@@ -20,23 +20,29 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="19.0" layoutY="197.0" text="Districto:" AnchorPane.leftAnchor="19.0">
+      <Label layoutX="12.0" layoutY="197.0" text="Provincia:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
       <ComboBox fx:id="cboDistrito" layoutX="80.0" layoutY="194.0" onAction="#filtrarSecciones" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
-      <Label layoutX="19.0" layoutY="241.0" text="Seccion:" AnchorPane.leftAnchor="19.0">
+      <Label layoutX="19.0" layoutY="241.0" text="Localidad" AnchorPane.leftAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
       <ComboBox fx:id="cboSeccion" layoutX="80.0" layoutY="238.0" onAction="#filtrarCircuitos" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
-      <Label layoutX="19.0" layoutY="288.0" text="Circuito:" AnchorPane.leftAnchor="19.0">
+      <Label layoutX="19.0" layoutY="288.0" text="Circuito:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
       <ComboBox fx:id="cboCircuito" layoutX="80.0" layoutY="285.0" onAction="#elegirCircuito" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
       <Separator layoutX="10.0" layoutY="72.0" prefHeight="19.0" prefWidth="893.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label layoutX="20.0" layoutY="331.0" text="Mesa:" AnchorPane.leftAnchor="10.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cboMesa" layoutX="81.0" layoutY="328.0" onAction="#elegirMesa" prefHeight="25.0" prefWidth="263.0" />
    </children>
 </AnchorPane>
