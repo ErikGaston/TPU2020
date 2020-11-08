@@ -19,12 +19,14 @@ public class Controller {
     public ComboBox cboSeccion;
     public ComboBox cboCircuito;
     public Button btnCargarDatos;
+    public ComboBox cboMesa;
 
     @FXML
     public void initialize() {
         cboDistrito.setDisable(true);
         cboSeccion.setDisable(true);
         cboCircuito.setDisable(true);
+        cboMesa.setDisable(true);
         btnCargarDatos.setDisable(true);
 
     }
@@ -53,33 +55,44 @@ public class Controller {
         lvwResultados.setItems(ol);
 
         cboDistrito.setDisable(false);
-        cboSeccion.setDisable(false);
-        cboCircuito.setDisable(false);
-
     }
 
-    public void filtrarSecciones(ActionEvent actionEvent){
+    public void elegirDistrito(ActionEvent actionEvent){
         ObservableList ol;
         Region distrito = (Region) cboDistrito.getValue();
         ol = FXCollections.observableArrayList(distrito.getSubregiones());
         cboSeccion.setItems(ol);
         ol = FXCollections.observableArrayList(resultados.getResultadosRegion(distrito.getCodigo()));
         lvwResultados.setItems(ol);
+
+        cboSeccion.setDisable(false);
+        //if (cboDistrito.getItems()==null) cboMesa.setItems(null);
     }
 
-    public void filtrarCircuitos(ActionEvent actionEvent){
+    public void elegirSeccion(ActionEvent actionEvent){
         ObservableList ol;
 
         if(cboSeccion.getValue() != null)
         {
-            Region seccion = (Region) cboSeccion.getValue();
-            ol = FXCollections.observableArrayList(seccion.getSubregiones());
-            cboCircuito.setItems(ol);
-            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(seccion.getCodigo()));
-            lvwResultados.setItems(ol);
+            try {
+                Region seccion = (Region) cboSeccion.getValue();
+                ol = FXCollections.observableArrayList(seccion.getSubregiones());
+                cboCircuito.setItems(ol);
+                ol = FXCollections.observableArrayList(resultados.getResultadosRegion(seccion.getCodigo()));
+                lvwResultados.setItems(ol);
+                cboCircuito.setDisable(false);
+            }
+            catch (NullPointerException e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("No hay resultados para mostrar!");
+                alert.showAndWait();
+                cboSeccion.setItems(null);
+            }
         }
         else
             cboCircuito.setItems(null);
+            cboMesa.setItems(null);
     }
 
     public void elegirCircuito(ActionEvent actionEvent) {
@@ -87,15 +100,47 @@ public class Controller {
 
         if(cboCircuito.getValue() != null)
         {
-            Region circuito = (Region) cboCircuito.getValue();
-//            ol = FXCollections.observableArrayList(circuito.getSubregiones());
-//            cboCircuito.setItems(ol);
-            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(circuito.getCodigo()));
-            lvwResultados.setItems(ol);
+            try {
+                Region circuito = (Region) cboCircuito.getValue();
+                ol = FXCollections.observableArrayList(circuito.getSubregiones());
+                cboMesa.setItems(ol);
+                ol = FXCollections.observableArrayList(resultados.getResultadosRegion(circuito.getCodigo()));
+                lvwResultados.setItems(ol);
+                cboMesa.setDisable(false);
+            }
+            catch (NullPointerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("No hay resultados para mostrar!");
+                alert.showAndWait();
+                cboCircuito.setItems(null);
+            }
         }
+        else
+            cboCircuito.setItems(null);
+            //cboMesa.setItems(null);
+
     }
 
     public void elegirMesa(ActionEvent actionEvent) {
-        //Implemetar busqueda subregiones mesa y mosrtarlas.
+        ObservableList ol;
+
+        if(cboMesa.getValue() != null)
+        {
+            Region mesa = (Region) cboMesa.getValue();
+            try {
+                ol = FXCollections.observableArrayList(resultados.getResultadosRegion(mesa.getCodigo()));
+                lvwResultados.setItems(ol);
+            }
+            catch (NullPointerException e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("No hay resultados para mostrar!");
+                alert.showAndWait();
+                cboMesa.setItems(null);
+            }
+        }
+        else
+            cboMesa.setItems(null);
     }
 }

@@ -82,7 +82,7 @@ public class TextFile {
     public Region identificarRegiones(){
         String line = "", campos[];
         Region pais = new Region("00", "Argentina");
-        Region distrito, seccion;
+        Region distrito, seccion, mesa;
 
         try {
             Scanner scnr = new Scanner(file);
@@ -138,7 +138,7 @@ public class TextFile {
                 {
                     votos = Integer.parseInt(campos[6]);
                     resultados.sumarVotos("00", codAgrupacion, votos);
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < 4; i++)
                     {
                         resultados.sumarVotos(campos[i], codAgrupacion, votos);
                     }
@@ -149,5 +149,38 @@ public class TextFile {
         {
             System.err.println("No se encontró el archivo!");
         }
+    }
+
+    public void agragarMesas(Region pais){
+        String line = "", codDistrito, codSeccion, codCircuito, codMesa, campos[];
+        Region  distrito, seccion, circuito, mesa;
+        int cont = 0;
+        try {
+            Scanner scnr = new Scanner(file);
+            while (scnr.hasNext()){
+                if (cont==0){
+                    scnr.nextLine();
+                    cont++;
+                }
+                line = scnr.nextLine();
+                campos = line.split("\\|");
+                codDistrito = campos[0];
+                codSeccion = campos[1];
+                codCircuito = campos[2];
+                codMesa = campos[3];
+
+                distrito = pais.getOrPutSubregion(codDistrito);
+                seccion = distrito.getOrPutSubregion(codSeccion);
+                circuito= seccion.getOrPutSubregion(codCircuito);
+
+                mesa = circuito.getOrPutSubregion(codMesa);
+                mesa.setNombre("Mesa: " + codMesa);
+            }
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println("No se puedo encontrar el archivo");
+        }
+
     }
 }

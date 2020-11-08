@@ -24,13 +24,13 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <ComboBox fx:id="cboDistrito" layoutX="80.0" layoutY="194.0" onAction="#filtrarSecciones" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
+      <ComboBox fx:id="cboDistrito" layoutX="80.0" layoutY="194.0" onAction="#elegirDistrito" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
       <Label layoutX="19.0" layoutY="241.0" text="Localidad" AnchorPane.leftAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cboSeccion" layoutX="80.0" layoutY="238.0" onAction="#filtrarCircuitos" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
+      <ComboBox fx:id="cboSeccion" layoutX="80.0" layoutY="238.0" onAction="#elegirSeccion" prefHeight="25.0" prefWidth="263.0" AnchorPane.leftAnchor="80.0" />
       <Label layoutX="19.0" layoutY="288.0" text="Circuito:" AnchorPane.leftAnchor="10.0">
          <font>
             <Font name="System Bold" size="13.0" />

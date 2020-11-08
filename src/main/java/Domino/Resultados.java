@@ -26,7 +26,7 @@ public class Resultados {
     }
 
     public Collection getResultadosRegion(String codRegion){
-        Agrupaciones a = (Agrupaciones ) tabla.get(codRegion);
+        Agrupaciones a = (Agrupaciones) tabla.get(codRegion);
         return a.getResultados();
     }
 }

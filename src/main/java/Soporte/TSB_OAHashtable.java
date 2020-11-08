@@ -369,13 +369,14 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
     @Override
     protected Object clone() throws CloneNotSupportedException
     {
-        TSB_OAHashtable<K, V> t = (TSB_OAHashtable<K, V>)super.clone();
-        t.array = array.clone();
-        t.keySet = null;
-        t.entrySet = null;
-        t.values = null;
-        t.modCount = 0;
-        return t;
+        TSB_OAHashtable<K, V> tabla = (TSB_OAHashtable<K, V>)super.clone();
+
+        tabla.array = array.clone();
+        tabla.keySet = null;
+        tabla.entrySet = null;
+        tabla.values = null;
+        tabla.modCount = 0;
+        return tabla;
     }
 
     /**
@@ -464,19 +465,18 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
     {
         if(value == null) return false;
 
+        //Se recorre la coleccion de valores de la tabla preguntando por la coincidencia.
         Iterator <V> it = this.values.iterator();
-        while(it.hasNext())
-        {
+        while(it.hasNext()) {
             V element = it.next();
-            if(value.equals(element)) return true;
+            if(value.equals(element))
+                return true;
         }
         return false;
     }
 
     /**
-     * Incrementa el tamaño de la tabla y reorganiza su contenido. Se invoca
-     * automaticamente cuando se detecta que la ocupación de la tabla supera
-     * el valor critico dado por load_factor.
+     * Incrementa el tamaño de la tabla y reorganiza su contenido. En funcion del valor de load_factor.
      */
     protected void rehash()
     {
@@ -492,7 +492,7 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
             new_length = TSB_OAHashtable.MAX_SIZE;
         }
 
-        // crear el nuevo arreglo con capacidad new_length
+        // crear el nuevo arreglo con capacidad new_length.
         Entry<K, V> temp[] = new Entry[new_length];
 
         // notificación fail-fast iterator... la tabla cambió su estructura...
@@ -660,8 +660,7 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
 
         public Entry(K key, V value)
         {
-            if(key == null || value == null)
-            {
+            if(key == null || value == null) {
                 throw new IllegalArgumentException("Entry(): parámetro null...");
             }
             this.key = key;
@@ -669,33 +668,28 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
             this.tombstone = false;
         }
 
-        /*
-         * Método que indica si la entry está marcada como tumba.
-         */
-        public boolean isTombstone(){ return tombstone; }
+        public boolean isTombstone(){
+            return tombstone;
+        }
 
-        /*
-         * Método que al ser invocado marca a la entry como tumba.
-         */
-        public void markAsTombstone(){ tombstone = true; }
+        public void markAsTombstone(){
+            tombstone = true;
+        }
 
         @Override
-        public K getKey()
-        {
+        public K getKey() {
             return key;
         }
 
         @Override
-        public V getValue()
-        {
+        public V getValue() {
             return value;
         }
 
         @Override
         public V setValue(V value)
         {
-            if(value == null)
-            {
+            if(value == null) {
                 throw new IllegalArgumentException("setValue(): parámetro null...");
             }
 
@@ -716,19 +710,28 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
         @Override
         public boolean equals(Object obj)
         {
-            if (this == obj) { return true; }
-            if (obj == null) { return false; }
-            if (this.getClass() != obj.getClass()) { return false; }
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (this.getClass() != obj.getClass()) {
+                return false;
+            }
 
             final Entry other = (Entry) obj;
-            if (!Objects.equals(this.key, other.key)) { return false; }
-            if (!Objects.equals(this.value, other.value)) { return false; }
+            if (!Objects.equals(this.key, other.key)) {
+                return false;
+            }
+            if (!Objects.equals(this.value, other.value)) {
+                return false;
+            }
             return true;
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return "(" + key.toString() + ", " + value.toString() + ")";
         }
     }
@@ -882,10 +885,8 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
      */
     private class EntrySet extends AbstractSet<Map.Entry<K, V>>
     {
-
         @Override
-        public Iterator<Map.Entry<K, V>> iterator()
-        {
+        public Iterator<Map.Entry<K, V>> iterator() {
             return new EntrySetIterator();
         }
 
@@ -893,15 +894,14 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
          * Verifica si esta vista (y por lo tanto la tabla) contiene al par
          * que entra como parámetro (que debe ser de la clase Entry).
          */
+
         @Override
-        public boolean contains(Object o)
-        {
+        public boolean contains(Object o) {
+
             if(o == null) { return false; }
             if(!(o instanceof Entry)) { return false; }
-
             Map.Entry<K, V> entry = (Map.Entry<K,V>)o;
             K key = entry.getKey();
-
             Map.Entry<K,V> arrayEntry = TSB_OAHashtable.this.getEntry(key);
 
             return entry.equals(arrayEntry);
@@ -915,18 +915,19 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
         public boolean remove(Object o)
         {
             if(o == null) { throw new NullPointerException("remove(): parámetro null");}
-            if(!(o instanceof Entry)) { return false; }
+            if(!(o instanceof Entry)) {
+                return false;
+            }
 
             Map.Entry<K, V> entry = (Map.Entry<K, V>) o;
             K key = entry.getKey();
-
             Entry<K, V> arrayEntry = TSB_OAHashtable.this.getEntry(key);
+            if(entry.equals(arrayEntry)) {
 
-            if(entry.equals(arrayEntry))
-            {
                 arrayEntry.markAsTombstone();
                 TSB_OAHashtable.this.count--;
                 TSB_OAHashtable.this.modCount++;
+
                 return true;
             }
             return false;
@@ -1084,7 +1085,7 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
 
         private class ValueCollectionIterator implements Iterator<V>
         {
-            // valor del índice del elemento actual en la iteración.
+            // Indice actual del elemento.
             private int current_index;
 
             // flag para controlar si remove() está bien invocado...
@@ -1157,7 +1158,6 @@ public class TSB_OAHashtable<K,V> implements Map<K,V>, Cloneable, Serializable
                         return entry.getValue();
                     }
                 }
-
             }
 
             /*
