@@ -7,12 +7,17 @@ import java.util.Collection;
 public class Region {
     private String codigo;
     private String nombre;
+    private TSBHashtable subregiones;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    private TSBHashtable subregiones;
+
+
+    public String getCodigo() {
+        return codigo;
+    }
 
     public Region(String codigo, String nombre) {
         this.codigo = codigo;
@@ -38,10 +43,10 @@ public class Region {
     }
 
     public Region getOrPutSubregion(String substring) {
-        Region sub = (Region) subregiones.get(codigo);
+        Region sub = (Region) subregiones.get(substring);
         if (sub == null)
-            subregiones.put(codigo, new Region(codigo, " " ));
+            subregiones.put(substring, new Region(substring, " " ));
 
-        return (Region) subregiones.get(codigo);
+        return (Region) subregiones.get(substring);
     }
 }
