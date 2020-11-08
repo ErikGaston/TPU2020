@@ -5,10 +5,8 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import java.io.File;
 
@@ -20,6 +18,16 @@ public class Controller {
     public ComboBox cboDistrito;
     public ComboBox cboSeccion;
     public ComboBox cboCircuito;
+    public Button btnCargarDatos;
+
+    @FXML
+    public void initialize() {
+        cboDistrito.setDisable(true);
+        cboSeccion.setDisable(true);
+        cboCircuito.setDisable(true);
+        btnCargarDatos.setDisable(true);
+
+    }
 
     File archivo;
     public void cambiarDestino(ActionEvent actionEvent) {
@@ -30,6 +38,7 @@ public class Controller {
         if (archivo != null)
             lblOrigen.setText(archivo.getPath());
 
+        btnCargarDatos.setDisable(false);
     }
 
     public void cargarDatos(ActionEvent actionEvent) {
@@ -46,6 +55,10 @@ public class Controller {
         resultados = new Resultados(lblOrigen.getText());
         ol = FXCollections.observableArrayList(resultados.getResultadosRegion("00"));
         lvwResultados.setItems(ol);
+
+        cboDistrito.setDisable(false);
+        cboSeccion.setDisable(false);
+        cboCircuito.setDisable(false);
 
     }
 

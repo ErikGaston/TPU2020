@@ -12,9 +12,10 @@ public class Agrupaciones {
 
     public Agrupaciones() {
         conteo = new TSBHashtable();
-        for(Object o: inicial.values()){
+        for (Object o: inicial.values())
+        {
             Agrupacion a = (Agrupacion) o;
-            conteo.put(a.getCodigo(),new Agrupacion(a.getCodigo(),a.getNombre()));
+            conteo.put(a.getCodigo(), new Agrupacion(a.getCodigo(),a.getNombre()));
         }
     }
 
