@@ -43,13 +43,9 @@ public class Controller {
 
     public void cargarDatos(ActionEvent actionEvent) {
 
-        //Carga de Grilla
         ObservableList ol;
-
-        //Genracion de lista agrupaciones
         Agrupaciones.leerAgrupaciones(lblOrigen.getText());
         Regiones regiones = new Regiones(lblOrigen.getText());
-
         ol = FXCollections.observableArrayList(regiones.getDistritos());
         cboDistrito.setItems(ol);
         resultados = new Resultados(lblOrigen.getText());
@@ -67,7 +63,6 @@ public class Controller {
         Region distrito = (Region) cboDistrito.getValue();
         ol = FXCollections.observableArrayList(distrito.getSubregiones());
         cboSeccion.setItems(ol);
-
         ol = FXCollections.observableArrayList(resultados.getResultadosRegion(distrito.getCodigo()));
         lvwResultados.setItems(ol);
     }
@@ -75,14 +70,28 @@ public class Controller {
     public void filtrarCircuitos(ActionEvent actionEvent){
         ObservableList ol;
 
-        if(cboSeccion.getValue() != null){
+        if(cboSeccion.getValue() != null)
+        {
             Region seccion = (Region) cboSeccion.getValue();
             ol = FXCollections.observableArrayList(seccion.getSubregiones());
             cboCircuito.setItems(ol);
             ol = FXCollections.observableArrayList(resultados.getResultadosRegion(seccion.getCodigo()));
             lvwResultados.setItems(ol);
-
-        }else
+        }
+        else
             cboCircuito.setItems(null);
+    }
+
+    public void elegirCircuito(ActionEvent actionEvent) {
+        ObservableList ol;
+
+        if(cboCircuito.getValue() != null)
+        {
+            Region circuito = (Region) cboCircuito.getValue();
+//            ol = FXCollections.observableArrayList(circuito.getSubregiones());
+//            cboCircuito.setItems(ol);
+            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(circuito.getCodigo()));
+            lvwResultados.setItems(ol);
+        }
     }
 }

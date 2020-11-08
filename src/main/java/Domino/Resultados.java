@@ -16,18 +16,17 @@ public class Resultados {
     }
 
     public void sumarVotos(String codRegion, String codAgrupacion, int votos){
-        int actual;
-
-        if(tabla.get(codRegion) == null)
+        if (tabla.get(codRegion) == null)
+        {
             tabla.put(codRegion, new Agrupaciones());
+        }
 
         Agrupaciones a = (Agrupaciones) tabla.get(codRegion);
         a.getAgrupacion(codAgrupacion).sumarVotos(votos);
     }
 
-    public Collection getResultadosRegion(String codRegion)
-    {
-        Agrupaciones a = (Agrupaciones) tabla.get(codRegion);
+    public Collection getResultadosRegion(String codRegion){
+        Agrupaciones a = (Agrupaciones ) tabla.get(codRegion);
         return a.getResultados();
     }
 }

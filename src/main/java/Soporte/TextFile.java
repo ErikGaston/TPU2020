@@ -56,7 +56,7 @@ public class TextFile {
 
     public TSBHashtable contarVotosAgrp(TSBHashtable htable) {
         String line = "", campos[];
-        //TSBHashtable htable = new TSBHashtable();
+
         Agrupacion agrupacion;
         int votos;
         try {
@@ -124,27 +124,30 @@ public class TextFile {
 
 
     public void sumarVotosPorRegion(Resultados resultados) {
-        String line = "", campos[];
-        int votos;
+        String linea = "", campos[], codAgrupacion;
 
+        int votos;
         try {
-            Scanner scnr = new Scanner(file);
-            while (scnr.hasNext()){
-                line = scnr.nextLine();
-                campos = line.split("\\|");
-                if (campos[4].compareTo("000100000000000")==0)
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                linea = sc.nextLine();
+                campos = linea.split("\\|");
+                codAgrupacion = campos[5];
+
+                if (campos[4].compareTo("000100000000000") == 0)
                 {
                     votos = Integer.parseInt(campos[6]);
-                    resultados.sumarVotos("00", campos[5],  votos);
-                    for (int i =0; i < 3; i++){
-                        resultados.sumarVotos("00", campos[5],  votos);
+                    resultados.sumarVotos("00", codAgrupacion, votos);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        resultados.sumarVotos(campos[i], codAgrupacion, votos);
                     }
                 }
             }
-        }
 
-        catch (FileNotFoundException e) {
-            System.out.println("No se encontró el archivo!");;
+        } catch (FileNotFoundException exception)
+        {
+            System.err.println("No se encontró el archivo!");
         }
     }
 }
