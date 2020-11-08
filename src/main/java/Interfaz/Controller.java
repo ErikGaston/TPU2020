@@ -1,24 +1,33 @@
 package Interfaz;
-import Domino.Agrupaciones;
-import Domino.Regiones;
+import Domino.*;
 import Soporte.TextFile;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import java.io.File;
 
 public class Controller {
+
+    public Resultados resultados;
     public Label lblOrigen;
     public ListView lvwResultados;
-    public ComboBox cboDistricto;
+    public ComboBox cboDistrito;
     public ComboBox cboSeccion;
     public ComboBox cboCircuito;
+    public Button btnCargarDatos;
+
+    @FXML
+    public void initialize() {
+        cboDistrito.setDisable(true);
+        cboSeccion.setDisable(true);
+        cboCircuito.setDisable(true);
+        btnCargarDatos.setDisable(true);
+
+    }
 
     File archivo;
     public void cambiarDestino(ActionEvent actionEvent) {
@@ -29,37 +38,60 @@ public class Controller {
         if (archivo != null)
             lblOrigen.setText(archivo.getPath());
 
+        btnCargarDatos.setDisable(false);
     }
 
     public void cargarDatos(ActionEvent actionEvent) {
 
-        //Carga de Grilla
         ObservableList ol;
-        //Genracion de lista agrupaciones
-        Agrupaciones agrupaciones = new Agrupaciones(lblOrigen.getText());
-        ol = FXCollections.observableArrayList(agrupaciones.getResultados());
-        lvwResultados.setItems(ol);
-        //Generacion de lista de districtos
+        Agrupaciones.leerAgrupaciones(lblOrigen.getText());
         Regiones regiones = new Regiones(lblOrigen.getText());
-        ol = FXCollections.observableArrayList(regiones.getDistrictos());
-        cboDistricto.setItems(ol);
+        ol = FXCollections.observableArrayList(regiones.getDistritos());
+        cboDistrito.setItems(ol);
+        resultados = new Resultados(lblOrigen.getText());
+        ol = FXCollections.observableArrayList(resultados.getResultadosRegion("00"));
+        lvwResultados.setItems(ol);
 
-        Resultados resultados = new Resultados(lblOrigen.getText());
+        cboDistrito.setDisable(false);
+        cboSeccion.setDisable(false);
+        cboCircuito.setDisable(false);
+
     }
+
     public void filtrarSecciones(ActionEvent actionEvent){
         ObservableList ol;
         Region distrito = (Region) cboDistrito.getValue();
-        ol = FXCollections.observableArrayList(distrito.getSubRegiones());
+        ol = FXCollections.observableArrayList(distrito.getSubregiones());
         cboSeccion.setItems(ol);
+        ol = FXCollections.observableArrayList(resultados.getResultadosRegion(distrito.getCodigo()));
+        lvwResultados.setItems(ol);
     }
 
     public void filtrarCircuitos(ActionEvent actionEvent){
         ObservableList ol;
-        if(cboSeccion.getValue() != null){
+
+        if(cboSeccion.getValue() != null)
+        {
             Region seccion = (Region) cboSeccion.getValue();
-            ol = FXColleccions.observableArrayList(seccion.getSubRegiones());
+            ol = FXCollections.observableArrayList(seccion.getSubregiones());
             cboCircuito.setItems(ol);
-        }else
+            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(seccion.getCodigo()));
+            lvwResultados.setItems(ol);
+        }
+        else
             cboCircuito.setItems(null);
+    }
+
+    public void elegirCircuito(ActionEvent actionEvent) {
+        ObservableList ol;
+
+        if(cboCircuito.getValue() != null)
+        {
+            Region circuito = (Region) cboCircuito.getValue();
+//            ol = FXCollections.observableArrayList(circuito.getSubregiones());
+//            cboCircuito.setItems(ol);
+            ol = FXCollections.observableArrayList(resultados.getResultadosRegion(circuito.getCodigo()));
+            lvwResultados.setItems(ol);
+        }
     }
 }

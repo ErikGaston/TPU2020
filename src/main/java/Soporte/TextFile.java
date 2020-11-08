@@ -2,6 +2,7 @@ package Soporte;
 
 import Domino.Agrupacion;
 import Domino.Region;
+import Domino.Resultados;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +56,7 @@ public class TextFile {
 
     public TSBHashtable contarVotosAgrp(TSBHashtable htable) {
         String line = "", campos[];
-        //TSBHashtable htable = new TSBHashtable();
+
         Agrupacion agrupacion;
         int votos;
         try {
@@ -81,18 +82,37 @@ public class TextFile {
     public Region identificarRegiones(){
         String line = "", campos[];
         Region pais = new Region("00", "Argentina");
+        Region distrito, seccion;
+
         try {
             Scanner scnr = new Scanner(file);
-
             while (scnr.hasNext()){
                 line = scnr.nextLine();
                 campos = line.split("\\|");
                 String codigo = campos[0];
                 String nombre = campos[1];
 
-                if (codigo.length()==2)
+                switch (codigo.length())
                 {
-                    pais.agregarSubregion(new Region(codigo, nombre));
+                    case 2:
+                        //provincia
+                        distrito = pais.getOrPutSubregion(codigo);
+                        distrito.setNombre(nombre);
+                        break;
+
+                    case 5:
+                        // nivel de localidad
+                        distrito = pais.getOrPutSubregion(codigo.substring(0, 2));
+                        seccion = distrito.getOrPutSubregion(codigo);
+                        seccion.setNombre(nombre);
+                        break;
+                    case 11:
+
+                        // Nivel de circuito.
+                        distrito = pais.getOrPutSubregion(codigo.substring(0, 2));
+                        seccion = distrito.getOrPutSubregion(codigo.substring(0, 5));
+                        seccion.agregarSubregion(new Region(codigo, nombre));
+                        break;
                 }
             }
         }
@@ -103,4 +123,31 @@ public class TextFile {
     }
 
 
+    public void sumarVotosPorRegion(Resultados resultados) {
+        String linea = "", campos[], codAgrupacion;
+
+        int votos;
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                linea = sc.nextLine();
+                campos = linea.split("\\|");
+                codAgrupacion = campos[5];
+
+                if (campos[4].compareTo("000100000000000") == 0)
+                {
+                    votos = Integer.parseInt(campos[6]);
+                    resultados.sumarVotos("00", codAgrupacion, votos);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        resultados.sumarVotos(campos[i], codAgrupacion, votos);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException exception)
+        {
+            System.err.println("No se encontró el archivo!");
+        }
+    }
 }
